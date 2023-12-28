@@ -19,13 +19,14 @@ const createContact = async (req, res) => {
     const userId = req.user.id;
     const { name, telephone, email, address, labels } = req.body;
 
-    await ContactModel.createContact(userId, {
+    await ContactModel.createContact(
+      userId,
       name,
       telephone,
       email,
       address,
-      labels,
-    });
+      labels
+    );
 
     res.status(201).json({
       status: 201,
@@ -43,16 +44,18 @@ const updateContact = async (req, res) => {
   try {
     const { name, telephone, email, address, labels } = req.body;
 
-    await ContactModel.createContact(req.params.id, {
+    await ContactModel.updateContact(
+      req.params.id,
       name,
       telephone,
       email,
       address,
-      labels,
-    });
+      labels
+    );
 
     res.status(201).json({
       status: 201,
+      id: req.params.id,
       message: "Successfully update contact",
     });
   } catch (error) {
