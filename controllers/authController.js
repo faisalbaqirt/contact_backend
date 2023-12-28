@@ -6,22 +6,24 @@ const register = async (req, res) => {
   try {
     const { username, password } = req.body;
 
-    const existingUser = await AuthModel.getByUsername(username)
+    const existingUser = await AuthModel.getByUsername(username);
 
-    if (existingUser.username === username) {
-      return res.json({
-        message: "This username is already registered",
-      });
+    if (existingUser) {
+      if (existingUser.username === username) {
+        return res.json({
+          message: "This username is already registered",
+        });
+      }
     }
 
     const hashedPassword = bcrypt.hashSync(password, 10);
 
     const user = await AuthModel.registerUser(username, hashedPassword);
 
-    if (user && user[0]) {
-      res.status(201).json({
-        id: user[0].id,
-        username: user[0].username,
+    if (user) {
+      return res.status(201).json({
+        id: user.id,
+        username: user.username,
         message: "User registration successfully!",
       });
     }
@@ -71,8 +73,7 @@ const login = async (req, res) => {
   }
 };
 
-
 module.exports = {
-    register,
-    login
-}
+  register,
+  login,
+};
