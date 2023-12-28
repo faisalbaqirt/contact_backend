@@ -1,6 +1,9 @@
 const express = require("express")
 const router = express.Router()
 const ContactController = require('../controllers/contactController')
+const isAuthenticated = require("../middleware/isAuthenticated")
+
+router.use(isAuthenticated)
 
 router.get("/", ContactController.getAllContactList)
 router.post("/", ContactController.createContact)
