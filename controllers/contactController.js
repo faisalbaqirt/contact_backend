@@ -14,6 +14,27 @@ const getAllContactList = async (req, res) => {
   }
 };
 
+const getContactById = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const data = await ContactModel.getContactById(userId, req.params.id);
+
+    if (data.length === 0) {
+      return res.status(404).json({
+        status: 404,
+        message: "Contact not found or not registered under your user",
+      });
+    }
+
+    res.status(200).json({ data: data });
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: error.message,
+    });
+  }
+};
+
 const createContact = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -85,6 +106,7 @@ const deleteContact = async (req, res) => {
 
 module.exports = {
   getAllContactList,
+  getContactById,
   createContact,
   updateContact,
   deleteContact,
