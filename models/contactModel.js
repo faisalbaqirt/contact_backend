@@ -10,6 +10,16 @@ const getAllContactList = async (userId) => {
   }
 };
 
+const getContactById = async (userId, contactId) => {
+  try {
+    const query = "SELECT * FROM contacts WHERE user_id = $1 AND id = $2";
+    const data = await pool.query(query, [userId, contactId]);
+    return data.rows;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const createContact = async (
   userId,
   name,
@@ -51,6 +61,7 @@ const deleteContact = async (id) => {
 
 module.exports = {
   getAllContactList,
+  getContactById,
   createContact,
   updateContact,
   deleteContact,
