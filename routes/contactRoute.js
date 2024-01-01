@@ -11,5 +11,6 @@ router.post("/new", ContactController.createContact)
 router.put("/person/:id", ContactController.updateContact)
 router.delete("/person/:id", ContactController.deleteContact)
 router.post("/person/:id/label", ContactController.addLabelToContact)
+router.delete("/person/:id/label", ContactController.removeLabelFromContact)
 
 module.exports = router
