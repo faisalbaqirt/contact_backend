@@ -104,10 +104,30 @@ const deleteContact = async (req, res) => {
   }
 };
 
+const addLabelToContact = async (req, res) => {
+  try {
+    const { label } = req.body;
+
+    await ContactModel.addLabelToContact(req.params.id, label);
+
+    res.status(201).json({
+      status: 201,
+      id: req.params.id,
+      message: "Successfully add label to contact",
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   getAllContactList,
   getContactById,
   createContact,
   updateContact,
   deleteContact,
+  addLabelToContact
 };
