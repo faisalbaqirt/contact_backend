@@ -68,11 +68,21 @@ const addLabelToContact = async (contactId, label) => {
   }
 };
 
+const removeLabelFromContact = async (contactId, label) => {
+  try {
+    const query = "UPDATE contacts SET labels = array_remove(labels, $1) WHERE id = $2";
+    await pool.query(query, [label, contactId]);
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   getAllContactList,
   getContactById,
   createContact,
   updateContact,
   deleteContact,
-  addLabelToContact
+  addLabelToContact,
+  removeLabelFromContact
 };
