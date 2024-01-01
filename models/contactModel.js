@@ -59,10 +59,20 @@ const deleteContact = async (id) => {
   }
 };
 
+const addLabelToContact = async (contactId, label) => {
+  try {
+    const query = "UPDATE contacts SET labels = array_append(labels, $1) WHERE id = $2";
+    await pool.query(query, [label, contactId]);
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   getAllContactList,
   getContactById,
   createContact,
   updateContact,
   deleteContact,
+  addLabelToContact
 };
