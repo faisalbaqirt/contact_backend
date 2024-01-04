@@ -18,6 +18,16 @@ const getContactById = async (userId, contactId) => {
   } catch (error) {
     throw error;
   }
+}
+;
+const getContactByLabel = async (userId, label) => {
+  try {
+    const query = "SELECT * FROM contacts WHERE user_id = $1 AND $2 = ANY(labels)";
+    const data = await pool.query(query, [userId, label]);
+    return data.rows;
+  } catch (error) {
+    throw error;
+  }
 };
 
 const createContact = async (
@@ -80,6 +90,7 @@ const removeLabelFromContact = async (contactId, label) => {
 module.exports = {
   getAllContactList,
   getContactById,
+  getContactByLabel,
   createContact,
   updateContact,
   deleteContact,
