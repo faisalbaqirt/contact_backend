@@ -35,6 +35,27 @@ const getContactById = async (req, res) => {
   }
 };
 
+const getContactByLabel = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const label = req.params.label_name;
+    const data = await ContactModel.getContactByLabel(userId, label);
+
+    if (data.length === 0) {
+      return res.json({
+        message: "Contact not found or not registered under your user",
+      });
+    }
+
+    res.status(200).json({ data: data });
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: error.message,
+    });
+  }
+};
+
 const createContact = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -145,6 +166,7 @@ const removeLabelFromContact = async (req, res) => {
 module.exports = {
   getAllContactList,
   getContactById,
+  getContactByLabel,
   createContact,
   updateContact,
   deleteContact,
