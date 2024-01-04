@@ -7,6 +7,7 @@ router.use(isAuthenticated)
 
 router.get("/", ContactController.getAllContactList)
 router.get("/person/:id", ContactController.getContactById)
+router.get("/label/:label_name", ContactController.getContactByLabel)
 router.post("/new", ContactController.createContact)
 router.put("/person/:id", ContactController.updateContact)
 router.delete("/person/:id", ContactController.deleteContact)
