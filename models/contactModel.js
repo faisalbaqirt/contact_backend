@@ -2,7 +2,7 @@ const pool = require("../db/config");
 
 const getAllContactList = async (userId) => {
   try {
-    const query = "SELECT * FROM contacts WHERE user_id = $1";
+    const query = "SELECT * FROM contacts WHERE user_id = $1 ORDER BY name";
     const data = await pool.query(query, [userId]);
     return data.rows;
   } catch (error) {
@@ -22,7 +22,7 @@ const getContactById = async (userId, contactId) => {
 ;
 const getContactByLabel = async (userId, label) => {
   try {
-    const query = "SELECT * FROM contacts WHERE user_id = $1 AND $2 = ANY(labels)";
+    const query = "SELECT * FROM contacts WHERE user_id = $1 AND $2 = ANY(labels) ORDER BY name";
     const data = await pool.query(query, [userId, label]);
     return data.rows;
   } catch (error) {
