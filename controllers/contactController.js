@@ -144,6 +144,25 @@ const addLabelToContact = async (req, res) => {
   }
 };
 
+const removeLabelFromAllContact = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { label } = req.body;
+
+    await ContactModel.removeLabelFromAllContact(userId, label);
+
+    res.status(201).json({
+      status: 201,
+      message: "Successfully remove label from all contact",
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: error.message,
+    });
+  }
+};
+
 const removeLabelFromContact = async (req, res) => {
   try {
     const { label } = req.body;
@@ -171,5 +190,6 @@ module.exports = {
   updateContact,
   deleteContact,
   addLabelToContact,
+  removeLabelFromAllContact,
   removeLabelFromContact,
 };
