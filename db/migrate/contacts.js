@@ -8,6 +8,7 @@ const createContactTable = `
     name VARCHAR(255) NOT NULL,
     telephone VARCHAR(15),
     email VARCHAR(255),
+    photo VARCHAR(255),
     address VARCHAR(255),
     labels VARCHAR(255)[] DEFAULT '{}',
     favorite BOOLEAN DEFAULT false
