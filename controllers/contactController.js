@@ -1,4 +1,6 @@
 const ContactModel = require("../models/contactModel");
+const CloudinaryService = require("../services/cloudinaryService");
+const fs = require("fs");
 
 const getAllContactList = async (req, res) => {
   try {
@@ -99,6 +101,35 @@ const updateContact = async (req, res) => {
       status: 201,
       id: req.params.id,
       message: "Successfully update contact",
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      message: error.message,
+    });
+  }
+};
+
+const updateContactPhoto = async (req, res) => {
+  try {
+    const photo = req.file.path;
+
+    // upload gambar ke Cloudinary
+    const folderName = "contacts";
+    const photoURL = await CloudinaryService.uploadCloudinary(
+      photo,
+      folderName
+    );
+
+    fs.unlinkSync(photo);
+
+    await ContactModel.updateContactPhoto(req.params.id, photoURL);
+
+    res.status(201).json({
+      status: 201,
+      id: req.params.id,
+      photo: photoURL,
+      message: "Photo updated successfully!",
     });
   } catch (error) {
     res.status(500).json({
@@ -215,6 +246,7 @@ module.exports = {
   getContactByLabel,
   createContact,
   updateContact,
+  updateContactPhoto,
   updateContactFavorite,
   deleteContact,
   addLabelToContact,
