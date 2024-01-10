@@ -59,6 +59,15 @@ const updateContact = async (id, name, telephone, email, address, labels) => {
   }
 };
 
+const updateContactPhoto = async (id, photo) => {
+  try {
+    const query = "UPDATE contacts SET photo = $1 WHERE id = $2";
+    await pool.query(query, [photo, id]);
+  } catch (error) {
+    throw error;
+  }
+};
+
 const updateContactFavorite = async (id, favorite) => {
   try {
     const query = "UPDATE contacts SET favorite = $1 WHERE id = $2";
@@ -111,6 +120,7 @@ module.exports = {
   getContactByLabel,
   createContact,
   updateContact,
+  updateContactPhoto,
   updateContactFavorite,
   deleteContact,
   addLabelToContact,
