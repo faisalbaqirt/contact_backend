@@ -9,7 +9,8 @@ const createContactTable = `
     telephone VARCHAR(15),
     email VARCHAR(255),
     address VARCHAR(255),
-    labels VARCHAR(255)[] DEFAULT '{}'
+    labels VARCHAR(255)[] DEFAULT '{}',
+    favorite BOOLEAN DEFAULT false
   );
 `;
 
