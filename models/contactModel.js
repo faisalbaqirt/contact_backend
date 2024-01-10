@@ -18,8 +18,8 @@ const getContactById = async (userId, contactId) => {
   } catch (error) {
     throw error;
   }
-}
-;
+};
+
 const getContactByLabel = async (userId, label) => {
   try {
     const query = "SELECT * FROM contacts WHERE user_id = $1 AND $2 = ANY(labels) ORDER BY name";
@@ -54,6 +54,15 @@ const updateContact = async (id, name, telephone, email, address, labels) => {
       "UPDATE contacts SET name = $1, telephone = $2, email = $3, address = $4, labels = $5 WHERE id = $6";
     const values = [name, telephone, email, address, labels, id];
     await pool.query(query, values);
+  } catch (error) {
+    throw error;
+  }
+};
+
+const updateContactFavorite = async (id, favorite) => {
+  try {
+    const query = "UPDATE contacts SET favorite = $1 WHERE id = $2";
+    await pool.query(query, [favorite, id]);
   } catch (error) {
     throw error;
   }
@@ -102,6 +111,7 @@ module.exports = {
   getContactByLabel,
   createContact,
   updateContact,
+  updateContactFavorite,
   deleteContact,
   addLabelToContact,
   removeLabelFromAllContact,
