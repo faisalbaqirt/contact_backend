@@ -68,10 +68,10 @@ const updateContactPhoto = async (id, photo) => {
   }
 };
 
-const updateContactFavorite = async (id, favorite) => {
+const updateContactStatus = async (id, newStatus) => {
   try {
-    const query = "UPDATE contacts SET favorite = $1 WHERE id = $2";
-    await pool.query(query, [favorite, id]);
+    const query = "UPDATE contacts SET status = $1 WHERE id = $2";
+    await pool.query(query, [newStatus, id]);
   } catch (error) {
     throw error;
   }
@@ -121,7 +121,7 @@ module.exports = {
   createContact,
   updateContact,
   updateContactPhoto,
-  updateContactFavorite,
+  updateContactStatus,
   deleteContact,
   addLabelToContact,
   removeLabelFromAllContact,
