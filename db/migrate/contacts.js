@@ -11,7 +11,7 @@ const createContactTable = `
     photo VARCHAR(255),
     address VARCHAR(255),
     labels VARCHAR(255)[] DEFAULT '{}',
-    favorite BOOLEAN DEFAULT false
+    status VARCHAR(20) DEFAULT 'not_favorite'
   );
 `;
 
