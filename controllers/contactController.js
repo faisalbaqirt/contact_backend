@@ -139,24 +139,15 @@ const updateContactPhoto = async (req, res) => {
   }
 };
 
-const updateContactFavorite = async (req, res) => {
+const updateContactStatus = async (req, res) => {
   try {
-    const userId = req.user.id;
-    const contact = await ContactModel.getContactById(userId, req.params.id);
-
-    if (!contact) {
-      return res.json({
-        message: "Contact not found or not registered under your user",
-      });
-    }
-
-    const favorite = !contact.favorite;
-    await ContactModel.updateFavorite(req.params.id, favorite);
+    const { newStatus } = req.body
+    await ContactModel.updateContactStatus(req.params.id, newStatus);
 
     res.status(201).json({
       status: 201,
       id: req.params.id,
-      message: "Favorite updated successfully",
+      message: "Status updated successfully",
     });
   } catch (error) {
     res.status(500).json({
@@ -247,7 +238,7 @@ module.exports = {
   createContact,
   updateContact,
   updateContactPhoto,
-  updateContactFavorite,
+  updateContactStatus,
   deleteContact,
   addLabelToContact,
   removeLabelFromAllContact,
