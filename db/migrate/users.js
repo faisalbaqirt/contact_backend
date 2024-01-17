@@ -15,6 +15,7 @@ const createUserTable = `
 
 pool.query(createUserTable)
   .then(() => console.log('User table created successfully'))
-  .catch(err => console.error('Error creating user table:', err));
+  .catch(err => console.error('Error creating user table:', err))
+  .finally(() => pool.end());
 
   

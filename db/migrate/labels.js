@@ -11,4 +11,5 @@ const createLabelTable = `
 
 pool.query(createLabelTable)
   .then(() => console.log('Label table created successfully'))
-  .catch(err => console.error('Error creating label table:', err));
+  .catch(err => console.error('Error creating label table:', err))
+  .finally(() => pool.end());

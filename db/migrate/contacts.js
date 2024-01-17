@@ -17,5 +17,6 @@ const createContactTable = `
 
 pool.query(createContactTable)
   .then(() => console.log('Contact table created successfully'))
-  .catch(err => console.error('Error creating contact table:', err));
+  .catch(err => console.error('Error creating contact table:', err))
+  .finally(() => pool.end());
 
